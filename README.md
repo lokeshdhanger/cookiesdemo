@@ -1,5 +1,8 @@
 # cookiesdemo
 
+* This POC demonstrates the old way of creating the cookies using Cookie object available and the new way of creating cookies in ResponseEntity.
+* It also demonstrates the use of Same-Site attribute in cookies.
+
 ## prerequisites:
 * java 8 should be installed,
 * maven should be installed
