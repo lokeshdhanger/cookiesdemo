@@ -41,6 +41,9 @@ public class TestController {
 		
 		String requestUrl = request.getRequestURL().toString();
 		logger.info("Request Url = {}", requestUrl);
+
+//		String hostName = RequestUtils.getHostName(requestUrl);
+//		logger.info("trackClick() :: Host name = {}", hostName);
 		
 		String requestUri = request.getRequestURL() + "?"+ request.getQueryString();
 		logger.info("RequestURI = {}", requestUri);
@@ -48,11 +51,11 @@ public class TestController {
 		Cookie cookie = new Cookie("TestCookie", "TestValue");
 		cookie.setMaxAge(9999999);
 		cookie.setPath("/");
-		cookie.setDomain("");
+		cookie.setDomain("poc.adsgraphy.com");
 		cookie.setSecure(true);
 		cookie.setHttpOnly(true);
 
-		addCookie(response, cookie, "none");
+		addCookie(response, cookie, "None");
 		
 		response.sendRedirect("https://pawan.gq/cookie_testing/landing.html");
 
@@ -68,10 +71,14 @@ public class TestController {
 		String requestUrl = request.getRequestURL().toString();
 		logger.info("Request Url = {}", requestUrl);
 		
+//		 String hostName = RequestUtils.getHostName(requestUrl);
+ //               logger.info("trackClick() :: Host name = {}", hostName);
+
 		String requestUri = request.getRequestURL() + "?"+ request.getQueryString();
 		logger.info("RequestURI = {}", requestUri);
 		
 		Cookie[] cookies = request.getCookies();
+		logger.info("cookies = {}", cookies);
 		if (cookies != null && cookies.length > 0) {
 			logger.info("cookies present in request");
 			for (Cookie cookie : cookies) {
@@ -188,12 +195,13 @@ public class TestController {
 		c.append(cookie.getName());
 		c.append('=');
 		c.append(cookie.getValue());
-		append2cookie(c, "domain", cookie.getDomain());
-		append2cookie(c, "path", cookie.getPath());
+		append2cookie(c, "Domain", cookie.getDomain());
+		append2cookie(c, "Path", cookie.getPath());
 		append2cookie(c, "SameSite", sameSite);
+		append2cookie(c, "Max-Age", String.valueOf(cookie.getMaxAge()));
 
 		if (cookie.getSecure()) {
-			c.append("; secure");
+			c.append("; Secure");
 		}
 		if (cookie.isHttpOnly()) {
 			c.append("; HttpOnly");
@@ -205,7 +213,7 @@ public class TestController {
 		// add to header
 		response.addHeader("Set-Cookie", c.toString());
 		// add to cookie
-		response.addCookie(cookie);
+	//	response.addCookie(cookie);
 	}
 
 	private static String getExpires(int maxAge) {
